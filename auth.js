@@ -6,7 +6,7 @@ var auth = function(username, password) {
 
     if (!user || user.name !== username || user.pass !== password) {
       res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-      res.send(401);
+      res.sendStatus(401);
     } else {
       next();
     }
