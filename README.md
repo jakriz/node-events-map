@@ -2,7 +2,7 @@ Real-time Events Map
 ====================
 This is a simple [node.js](https://nodejs.org/) application which displays a location extracted from an IP address to all connected clients in real time on the world map. This app can be used, for example, to show your users' activity around the world.
 
-The application uses [express.js](http://expressjs.com/) framework and [socket.io](http://socket.io/) to push the events to the client. Geolocation is done using a free database from [maxmind](https://www.maxmind.com).
+The application uses [express.js](http://expressjs.com/) framework and [socket.io](http://socket.io/) to push the events to the client. The geolocation of IP addresses is done using a free database from [maxmind](https://www.maxmind.com).
 
 How to run
 ----------
@@ -17,6 +17,6 @@ The app listens to new events at endpoint `events/` which is protected by HTTP B
 
 How to deploy
 -------------
-For easy production deployment you can use [docker](https://www.docker.com/) with the included `Dockerfile`. For more information see the [official docker page](https://github.com/nodejs/docker-node).
+For easy production deployment you can use [docker](https://www.docker.com/) with the included `Dockerfile`. For more information see the [node.js docker page](https://github.com/nodejs/docker-node).
 
-You can specify event endpoint credentials for production in `config/production.json`.
+You can specify the `/events` endpoint credentials for production in `config/production.json`.
