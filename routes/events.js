@@ -3,6 +3,7 @@ var router = express.Router();
 
 var auth = require('../auth');
 var eventsStream = require('../services/events-stream');
+var eventsDao = require('../services/events-dao');
 var mmdbReader = require('maxmind-db-reader');
 var localisator = mmdbReader.openSync('./mmdb/GeoLite2-City.mmdb');
 
@@ -11,27 +12,28 @@ router.post('/', auth(), function(req, res) {
 
   localisator.getGeoData(ipAddress, function(error, result) {
     if (!error && !!result) {
-      eventsStream.newEvent({
+      event = {
         latitude: result.location.latitude,
         longitude: result.location.longitude
-      });
+      };
+
+      eventsStream.newEvent(event);
+      eventsDao.add(event);
     }
   });
 
   res.sendStatus(200);
 
 }).get('/', function(req, res) {
-  events = [
-    {
-      latitude: 48.493568,
-      longitude: 11.208918
-    },
-    {
-      latitude: 49.493568,
-      longitude: 11.208918
-    },
-  ]
-  res.json(events);
+  eventsDao.getForLastDay(function(err, result) {
+    if (err) {
+      res.sendStatus(500);
+    } else if (result.length) {
+      res.json(result);
+    } else {
+      res.json([]);
+    }
+  });
 });
 
 module.exports = router;
