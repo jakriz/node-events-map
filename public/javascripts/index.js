@@ -1,5 +1,5 @@
 function initMap() {
-  return new google.maps.Map(document.getElementById('map'), {
+  return new google.maps.Map(document.getElementById('realtime-map'), {
     center: { lat: 0, lng: 0 },
     zoom: 3,
     mapTypeControl: false,
@@ -27,6 +27,8 @@ function removeMarkerAfter(marker, timeout) {
   }
 
 $(document).ready(function() {
-  var map = initMap();
-  setupSocket(map);
+  if ($('#realtime-map').length > 0) {
+    var map = initMap();
+    setupSocket(map);
+  }
 });

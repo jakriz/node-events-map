@@ -1,6 +1,10 @@
 var basicAuth = require('basic-auth');
+var config = require('config');
 
-var auth = function(username, password) {
+var username = config.get('endpoint.username');
+var password = config.get('endpoint.password');
+
+var auth = function() {
   return function(req, res, next) {
     var user = basicAuth(req);
 
