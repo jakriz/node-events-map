@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('node-events-map:server');
 var assert = require('assert');
+var config = require('config');
 var http = require('http');
 var MongoClient = require('mongodb').MongoClient;
 var eventsStream = require('../services/events-stream');
@@ -37,10 +38,11 @@ eventsStream.init(server);
 /**
  * Initialize events dao
  */
- MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
-   assert.equal(null, err);
-   eventsDao.init(db);
- });
+mongoUrl = 'mongodb://'+process.env.MONGO_PORT_27017_TCP_ADDR+':'+process.env.MONGO_PORT_27017_TCP_PORT+'/db';
+MongoClient.connect(mongoUrl, function(err, db) {
+  assert.equal(null, err);
+  eventsDao.init(db);
+});
 
 /**
  * Normalize a port into a number, string, or false.

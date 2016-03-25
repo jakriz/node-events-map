@@ -11,7 +11,7 @@ router.post('/', auth(), function(req, res) {
   ipAddress = req.body.ipAddress;
 
   localisator.getGeoData(ipAddress, function(error, result) {
-    if (!error && !!result) {
+    if (!error && !!result && !!result.location) {
       event = {
         latitude: result.location.latitude,
         longitude: result.location.longitude
