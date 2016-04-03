@@ -1,5 +1,5 @@
-function initMap() {
-  return new google.maps.Map(document.getElementById('map'), {
+function initRealtimeMap() {
+  return new google.maps.Map(document.getElementById('realtime-map'), {
     center: { lat: 0, lng: 0 },
     zoom: 3,
     mapTypeControl: false,
@@ -9,7 +9,7 @@ function initMap() {
   });
 }
 
-function setupSocket(map) {
+function setupRealtimeMapSocket(map) {
   var socket = io();
   socket.on('event.new', function(event) {
     var marker = new google.maps.Marker({
@@ -27,6 +27,8 @@ function removeMarkerAfter(marker, timeout) {
   }
 
 $(document).ready(function() {
-  var map = initMap();
-  setupSocket(map);
+  if ($('#realtime-map').length > 0) {
+    var map = initRealtimeMap();
+    setupRealtimeMapSocket(map);
+  }
 });
