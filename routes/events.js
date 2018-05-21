@@ -7,7 +7,7 @@ var eventsDao = require('../services/events-dao');
 var mmdbReader = require('maxmind-db-reader');
 var localisator = mmdbReader.openSync('./mmdb/GeoLite2-City.mmdb');
 
-router.post('/', auth(), function(req, res) {
+router.post('/', auth.createAuth(), function(req, res) {
   ipAddress = req.body.ipAddress;
 
   localisator.getGeoData(ipAddress, function(error, result) {
@@ -24,7 +24,9 @@ router.post('/', auth(), function(req, res) {
 
   res.sendStatus(200);
 
-}).get('/', function(req, res) {
+}).get('/', auth.viewAuth(), function(req, res) {
+  req.session.auth = true;
+  
   eventsDao.getForLastDay(function(err, result) {
     if (err) {
       res.sendStatus(500);

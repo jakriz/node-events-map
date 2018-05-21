@@ -1,11 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res) {
+var auth = require('../auth');
+
+router.get('/', auth.viewAuth(), function(req, res) {
+  req.session.viewAuth = true;
   res.render('index', { title: 'Realtime map' });
 });
 
-router.get('/heat', function(req, res) {
+router.get('/heat', auth.viewAuth(), function(req, res) {
+  req.session.viewAuth = true;
   res.render('heat', { title: 'Heatmap'})
 });
 
