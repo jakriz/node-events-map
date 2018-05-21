@@ -4,6 +4,11 @@ var config = require('config');
 var auth = { };
 
 var authMehtod = function(req, res, next, credentials) {
+  if (!credentials) {
+    next();
+    return;
+  }
+
   var user = basicAuth(req);
   if (!user || user.name !== credentials.username || user.pass !== credentials.password) {
     res.set('WWW-Authenticate', 'Basic realm=Authorization Required');

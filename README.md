@@ -4,7 +4,7 @@ This is a simple [node.js](https://nodejs.org/) application which displays a loc
 The application uses [express.js](http://expressjs.com/) framework and [socket.io](http://socket.io/) to push the events to the client. The geolocation of IP addresses is done using a free database from [maxmind](https://www.maxmind.com).
 
 ## How to run
-The app listens to new events at endpoint `events/` which is protected by HTTP Basic auth with credentials set in `config/default.json` (by default set to username `admin` and password `admin`).
+The app listens to new events at endpoint `events/` which is protected by HTTP Basic authorisation with credentials set in `config/default.json` (by default set to username `admin` and password `admin`).
 
 To show sample data on the map you can also run `ruby mock_events.rb` which generates and posts random IP addresses in random intervals.
 
