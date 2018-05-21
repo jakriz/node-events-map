@@ -3,35 +3,25 @@ var config = require('config');
 
 var auth = { };
 
+var authMehtod = function(req, res, next, credentials) {
+  var user = basicAuth(req);
+  if (!user || user.name !== credentials.username || user.pass !== credentials.password) {
+    res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+    res.sendStatus(401);
+  } else {
+    next();
+  }
+};
+
 auth.viewAuth = function() {
   return function(req, res, next) {
-    var user = basicAuth(req);
-
-    var username = config.get('credentials.view.username');
-    var password = config.get('credentials.view.password');
-
-    if (!user || user.name !== username || user.pass !== password) {
-      res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-      res.sendStatus(401);
-    } else {
-      next();
-    }
+    authMehtod(req, res, next, config.get('credentials.view'));
   }
 };
 
 auth.createAuth = function() {
   return function(req, res, next) {
-    var user = basicAuth(req);
-
-    var username = config.get('credentials.create.username');
-    var password = config.get('credentials.create.password');
-
-    if (!user || user.name !== username || user.pass !== password) {
-      res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-      res.sendStatus(401);
-    } else {
-      next();
-    }
+    authMehtod(req, res, next, config.get('credentials.create'));
   }
 };
 
