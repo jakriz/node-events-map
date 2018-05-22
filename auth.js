@@ -3,31 +3,39 @@ var config = require('config');
 
 var auth = { };
 
-var authMehtod = function(req, res, next, credentials) {
-  if (!credentials) {
-    next();
-    return;
-  }
-
-  var user = basicAuth(req);
-  if (!user || user.name !== credentials.username || user.pass !== credentials.password) {
-    res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-    res.sendStatus(401);
-  } else {
-    next();
-  }
-};
-
 auth.viewAuth = function() {
-  return function(req, res, next) {
-    authMehtod(req, res, next, config.get('credentials.view'));
-  }
+	return function(req, res, next) {
+		if (req.session.viewAuthorised || isAuthValid(req, config.get('credentials.view'))) {
+			req.session.viewAuthorised = true;
+			next();
+		} else {
+			unauthorised(res);
+		}
+	}
 };
 
 auth.createAuth = function() {
-  return function(req, res, next) {
-    authMehtod(req, res, next, config.get('credentials.create'));
-  }
+	return function(req, res, next) {
+		if (isAuthValid(req, config.get('credentials.create'))) {
+			next();
+		} else {
+			unauthorised(res);
+		}
+	}
 };
+
+var isAuthValid = function(req, credentials) {
+	if (!credentials) {
+		return true;
+	}
+
+	var user = basicAuth(req);
+	return !!user && user.name == credentials.username && user.pass == credentials.password;
+};
+
+var unauthorised = function(res) {
+	res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+	res.sendStatus(401);
+}
 
 module.exports = auth;

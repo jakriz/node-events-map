@@ -19,7 +19,7 @@ http://dev.maxmind.com/geoip/geoip2/geolite2/
 3. Install [MongoDB](https://docs.mongodb.org/manual/installation/) and start it
 4. Download a `mmdb` database file from maxmind and put it in `mmdb/GeoLite2-City.mmdb`
 http://dev.maxmind.com/geoip/geoip2/geolite2/
-5. Specify environment variables used to connect to MongoDB and start the server, e.g. `MONGO_TCP_ADDR=localhost MONGO_TCP_PORT=27017 npm start`
+5. Specify environment variables used to connect to MongoDB and start the server, e.g. `MONGO_PORT_27017_TCP_ADDR=localhost MONGO_PORT_27017_TCP_PORT=27017 npm start`
 
 ## How to deploy
 For easy production deployment you can use [docker](https://www.docker.com/) with the included `Dockerfile` and `docker-compose`. To run in production, use the included production file, e.g.

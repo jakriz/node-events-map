@@ -39,10 +39,11 @@ eventsStream.init(server, session);
 /**
  * Initialize events dao
  */
-mongoUrl = 'mongodb://'+process.env.MONGO_TCP_ADDR+':'+process.env.MONGO_TCP_PORT+'/db';
-MongoClient.connect(mongoUrl, function(err, db) {
+
+MongoClient.connect('mongodb://'+process.env.MONGO_PORT_27017_TCP_ADDR+':'+process.env.MONGO_PORT_27017_TCP_PORT, function(err, client) {
   assert.equal(null, err);
-  eventsDao.init(db);
+  var database = client.db("eventsDb");
+  eventsDao.init(database);
 });
 
 /**

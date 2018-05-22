@@ -24,9 +24,7 @@ router.post('/', auth.createAuth(), function(req, res) {
 
   res.sendStatus(200);
 
-}).get('/', auth.viewAuth(), function(req, res) {
-  req.session.auth = true;
-  
+}).get('/', auth.viewAuth(), function(req, res) {  
   eventsDao.getForLastDay(function(err, result) {
     if (err) {
       res.sendStatus(500);
