@@ -4,7 +4,7 @@ This is a simple [node.js](https://nodejs.org/) application which displays a loc
 The application uses [express.js](http://expressjs.com/) framework and [socket.io](http://socket.io/) to push the events to the client. The geolocation of IP addresses is done using a free database from [maxmind](https://www.maxmind.com).
 
 ## How to run
-The app listens to new events at endpoint `events/` which is protected by HTTP Basic auth with credentials set in `config/default.json` (by default set to username `admin` and password `admin`).
+The app listens to new events at endpoint `events/` which is protected by HTTP Basic authorisation with credentials set in `config/default.json` (by default set to username `admin` and password `admin`).
 
 To show sample data on the map you can also run `ruby mock_events.rb` which generates and posts random IP addresses in random intervals.
 
@@ -19,7 +19,7 @@ http://dev.maxmind.com/geoip/geoip2/geolite2/
 3. Install [MongoDB](https://docs.mongodb.org/manual/installation/) and start it
 4. Download a `mmdb` database file from maxmind and put it in `mmdb/GeoLite2-City.mmdb`
 http://dev.maxmind.com/geoip/geoip2/geolite2/
-5. Specify environment variables used to connect to MongoDB and start the server, e.g. `MONGO_PORT_27017_TCP_ADDR=localhost MONGO_PORT_27017_TCP_PORT=27017 npm start npm start`
+5. Specify environment variables used to connect to MongoDB and start the server, e.g. `MONGO_PORT_27017_TCP_ADDR=localhost MONGO_PORT_27017_TCP_PORT=27017 npm start`
 
 ## How to deploy
 For easy production deployment you can use [docker](https://www.docker.com/) with the included `Dockerfile` and `docker-compose`. To run in production, use the included production file, e.g.

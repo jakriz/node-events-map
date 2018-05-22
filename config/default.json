@@ -1,6 +1,10 @@
 {
-  "endpoint": {
-    "username": "admin",
-    "password": "admin"
+  "secretKey": "aStrongSecret",
+  "credentials": {
+    "create": {
+      "username": "admin",
+      "password": "admin"
+    },
+    "view": null
   }
 }

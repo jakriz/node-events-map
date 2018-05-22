@@ -16,7 +16,7 @@ function setupRealtimeMapSocket(map) {
       position: new google.maps.LatLng(event.latitude, event.longitude),
       map: map
     });
-    removeMarkerAfter(marker, 8000);
+    removeMarkerAfter(marker, 5000);
   });
 }
 
